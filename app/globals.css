@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 255 246 241;
+  --foreground: 120 60 80;
+}
+
+html,
+body {
+  height: 100%;
+  background: linear-gradient(135deg, #fff6f1 0%, #ffe6ec 50%, #ffd6e0 100%);
+  color: rgb(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Soft gradient backdrop with subtle blobs */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 50vmax;
+  height: 50vmax;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+body::before {
+  background: radial-gradient(circle, #ffc0d1 0%, transparent 60%);
+  top: -10vmax;
+  left: -10vmax;
+}
+body::after {
+  background: radial-gradient(circle, #ffe6c0 0%, transparent 60%);
+  bottom: -10vmax;
+  right: -10vmax;
+}
+
+main,
+section,
+header,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cute scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fff1f4;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffb3c6, #ff7896);
+  border-radius: 999px;
+}
+
+/* Selection color */
+::selection {
+  background: #ffb3c6;
+  color: #4a1a2b;
+}
+
+/* Reusable focus ring */
+.ring-cute:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 120, 150, 0.35);
+  border-radius: 18px;
+}
+
+/* Tiny utility for the dotted background sparkles */
+.sparkle-bg {
+  background-image:
+    radial-gradient(rgba(255, 120, 150, 0.18) 1px, transparent 1px),
+    radial-gradient(rgba(255, 200, 210, 0.18) 1px, transparent 1px);
+  background-size: 28px 28px, 56px 56px;
+  background-position: 0 0, 14px 14px;
+}
