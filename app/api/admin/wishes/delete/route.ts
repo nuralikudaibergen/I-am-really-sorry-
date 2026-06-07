@@ -1,16 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readWishes, clearWishes, appendWish, isKVConfigured } from "@/lib/kv";
+import { isAuthorized } from "@/lib/admin-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-function isAuthorized(req: NextRequest) {
-  const url = new URL(req.url);
-  const provided = url.searchParams.get("secret") || req.headers.get("x-admin-secret");
-  const expected = process.env.ADMIN_SECRET;
-  if (!expected || expected === "change-me") return false;
-  return provided === expected;
-}
 
 export async function POST(req: NextRequest) {
   if (!isAuthorized(req)) {
@@ -37,7 +30,6 @@ export async function POST(req: NextRequest) {
     }
   } else {
     // In-memory: replace contents in place.
-    // (We use the in-memory store inside kv.ts via a side channel.)
     (await import("@/lib/kv")).__setMemory(remaining);
   }
   return NextResponse.json({ ok: true, removed: all.length - remaining.length });

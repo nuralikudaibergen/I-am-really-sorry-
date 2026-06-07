@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vercel/kv": "^3.0.0",
+    "@upstash/redis": "^1.38.0",
     "canvas-confetti": "^1.9.3",
     "framer-motion": "^11.11.17",
     "next": "14.2.18",

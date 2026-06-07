@@ -1,16 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clearWishes } from "@/lib/kv";
+import { isAuthorized } from "@/lib/admin-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-function isAuthorized(req: NextRequest) {
-  const url = new URL(req.url);
-  const provided = url.searchParams.get("secret") || req.headers.get("x-admin-secret");
-  const expected = process.env.ADMIN_SECRET;
-  if (!expected || expected === "change-me") return false;
-  return provided === expected;
-}
 
 export async function DELETE(req: NextRequest) {
   if (!isAuthorized(req)) {
